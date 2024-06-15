@@ -1,0 +1,172 @@
+.gdpr-cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #111111;
+    color: #fff;
+    text-align: center;
+    z-index: 9999;
+}
+
+.gdpr-cookie-consent button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #ff3254;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    line-height: none !important;
+}
+.gdpr-cookie-consent .preferences-cookies {
+    position: fixed;
+    margin-left: 1vw;
+    background-color: transparent;
+    border: 1px white solid;
+    height: 25px !important;
+}
+
+.gdpr-cookie-consent button:hover {
+    background-color: #e7798d;
+}
+
+.gdpr-cookie-consent a {
+    color: #aaa6a7;
+    font-size: small;
+}
+.gdpr-cookie-consent a:hover {
+    color: #ff3254;
+    font-size: small;
+}
+.gdpr-cookie-consent .cookie-text {
+    margin-bottom: 0.5em;
+}
+.gdpr-preferences-popup {
+    position: fixed;
+    left: 57vw;
+    bottom: 8em;
+    z-index: 9999;
+    background-color: #101010;
+    padding: 1em 2em;
+}
+.gdpr-preferences-popup .save-preferences,
+.gdpr-preferences-popup .close-preferences {
+    margin-top: 1.5em;
+    height: 3.8em;
+}
+.gdpr-preferences-popup .preferences-text {
+    max-width: 20em;
+}
+.gdpr-preferences-check {
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 5px;
+    padding-top: 2px;
+    cursor: pointer;
+    font-size: 14px;
+}
+    .gdpr-preferences-check input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+.gdpr-preferences-check_indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border: 0px solid #000000;
+    border-radius: 0px;
+}
+.gdpr-preferences-check:hover input ~ .gdpr-preferences-check_indicator,
+.gdpr-preferences-check input:focus ~ .gdpr-preferences-check_indicator {
+    background: #cccccc;
+}
+
+.gdpr-preferences-check input:checked ~ .gdpr-preferences-check_indicator {
+    background: #fe3153;
+}
+.gdpr-preferences-check:hover input:not([disabled]):checked ~ .gdpr-preferences-check_indicator,
+.gdpr-preferences-check input:checked:focus ~ .gdpr-preferences-check_indicator {
+    background: #0e6647d;
+}
+.gdpr-preferences-check input:disabled ~ .gdpr-preferences-check_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.gdpr-preferences-check_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.gdpr-preferences-check input:checked ~ .gdpr-preferences-check_indicator:after {
+    display: block;
+}
+.gdpr-preferences-checkbox .gdpr-preferences-check_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.gdpr-preferences-checkbox input:disabled ~ .gdpr-preferences-check_indicator:after {
+    border-color: #7b7b7b;
+}
+.gdpr-preferences-checkbox .gdpr-preferences-check_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3.341rem;
+    height: 3.313rem;
+    margin-left: -0.608rem;
+    margin-top: -0.755rem;
+    background: #fd2840;
+    border-radius: 3rem;
+    opacity: 0.6;
+    z-index: 99999;
+    transform: scale(0);
+}
+@keyframes s-ripple {
+    0% {
+        transform: scale(0);
+    }
+    20% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+@keyframes s-ripple-dup {
+   0% {
+       transform: scale(0);
+    }
+   30% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+.gdpr-preferences-checkbox input + .gdpr-preferences-check_indicator::before {
+    animation: s-ripple 250ms ease-out;
+}
+.gdpr-preferences-checkbox input:checked + .gdpr-preferences-check_indicator::before {
+    animation-name: s-ripple-dup;
+}
