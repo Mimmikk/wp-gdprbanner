@@ -19,11 +19,15 @@ The plugin itself is simple in it's operation. There are predefined scripts for:
 
 How do you set it up?
 
-Simple! We've made sure to keep it as easy as possible, to add your Analytics source simply edit the main plugin file and add your ID. For example, if you only have Google Analytics 4 you add it like this: `define('GDPR_GTAG_GA_ID', 'GA-YOURCODE');`. Any of the ID definitions where the data is "X" or simply empty, will not be loaded by the plugin.
+Simple! We've made sure to keep it as easy as possible.
+
+Add your Analytics source by simply editing the main plugin file and add your ID. For example, if you only have Google Analytics 4 you add it like this: `define('GDPR_GTAG_GA_ID', 'GA-YOURCODE');`. Any of the ID definitions where the data is "X" or simply empty, will not be loaded by the plugin.
 
 - To edit the banner itself is done in `lib/banner.php` with HTML.
 - To edit the 'Preferences' is done in `lib/js/gdpr-script.js` under `openPreferencesPopup`. It's HTML printed by JS, so use HTML or modify by your needs.
 - Styles and colors can be changed in the CSS: `lib/css/banner.css`.
+
+When you're finished, zip it up and upload it to your WordPress instance.
 
 #### How is it compatible with various laws?
 
