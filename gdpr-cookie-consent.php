@@ -9,11 +9,10 @@
  * License: GPLv3
  */
 
-define('GDPR_GTAG_GA_ID', 'X'); // Google Analytics ID. Replace X with GA ID. Leave "X" or empty to not load script.
-define('GDPR_GTAG_GTM_ID', 'X'); // Google Tag Manager ID. Replace X with GTM ID. Leave "X" or empty to not load script.
-define('GDPR_UMAMI_SITE_ID', 'X'); // Umami Site ID. Replace X with Site ID. Requires on GDPR_UMAMI_URI. Leave "X" or empty to not load script.
-define('GDPR_UMAMI_URI', 'X'); // Umami URL. Replace X with URL. Include full URL with script location. Requires GDPR_UMAMI_SITE_ID. Leave "X" or empty to not load script.
-
+define('GDPR_GTAG_GA_ID', 'X'); // Google Analytics ID.
+define('GDPR_GTAG_GTM_ID', 'GTM-PRG9D4D9'); // Google Tag Manager ID.
+define('GDPR_UMAMI_SITE_ID', 'X'); // Umami Site ID.
+define('GDPR_UMAMI_URI', 'X'); // Umami URL (without trailing slash).
 require_once plugin_dir_path(__FILE__) . 'lib/gdpr-analytics-scripts.php';
 
 function gdpr_enqueue_scripts() {
@@ -27,15 +26,18 @@ function gdpr_enqueue_scripts() {
         'gtagGtmID' => GDPR_GTAG_GTM_ID,
         'umamiSiteID' => GDPR_UMAMI_SITE_ID,
         'umamiURI' => GDPR_UMAMI_URI,
+        'nonce' => wp_create_nonce('fetch_gdpr_banner_nonce')
     ));
 }
 add_action('wp_enqueue_scripts', 'gdpr_enqueue_scripts');
 
+// Placeholder banner
 function gdpr_display_banner() {
     echo "<div id='gdpr-banner-placeholder'></div>";
 }
 add_action('wp_footer', 'gdpr_display_banner');
 
+// Based on user consent
 function gdpr_include_analytics_scripts() {
     gdpr_include_gtm_script();
     gdpr_include_ga_script();
@@ -45,7 +47,10 @@ add_action('wp_head', 'gdpr_include_analytics_scripts', 1);
 
 add_action('wp_body_open', 'gdpr_inject_gtm_noscript');
 
+// AJAX banner fetch
 function fetch_gdpr_banner_callback() {
+    check_ajax_referer('fetch_gdpr_banner_nonce', 'nonce');
+
     ob_start();
     include 'lib/banner.php';
     $banner_html = ob_get_clean();
@@ -53,4 +58,21 @@ function fetch_gdpr_banner_callback() {
 }
 add_action('wp_ajax_fetch_gdpr_banner', 'fetch_gdpr_banner_callback');
 add_action('wp_ajax_nopriv_fetch_gdpr_banner', 'fetch_gdpr_banner_callback');
+
+// Deactivate stuff below
+register_deactivation_hook(__FILE__, 'gdpr_cookie_consent_deactivate');
+
+function gdpr_cookie_consent_deactivate() {
+    wp_clear_scheduled_hook('gdpr_cookie_consent_cron');
+
+    delete_option('gdpr_cookie_consent_options');
+    delete_transient('gdpr_cookie_consent_transient');
+}
+
+// Uninstall
+register_uninstall_hook(__FILE__, 'gdpr_cookie_consent_uninstall');
+
+function gdpr_cookie_consent_uninstall() {
+    include plugin_dir_path(__FILE__) . 'uninstall.php';
+}
 ?>
