@@ -9,10 +9,10 @@
  * License: GPLv3
  */
 
-define('GDPR_GTAG_GA_ID', 'X'); // Google Analytics ID.
-define('GDPR_GTAG_GTM_ID', 'GTM-PRG9D4D9'); // Google Tag Manager ID.
-define('GDPR_UMAMI_SITE_ID', 'X'); // Umami Site ID.
-define('GDPR_UMAMI_URI', 'X'); // Umami URL (without trailing slash).
+define('GDPR_GTAG_GA_ID', 'X'); // Google Analytics ID. Replace X with GA ID. Leave "X" or empty to not load script.
+define('GDPR_GTAG_GTM_ID', 'X'); // Google Tag Manager ID. Replace X with GTM ID. Leave "X" or empty to not load script.
+define('GDPR_UMAMI_SITE_ID', 'X'); // Umami Site ID. Replace X with Site ID. Requires on GDPR_UMAMI_URI. Leave "X" or empty to not load script.
+define('GDPR_UMAMI_URI', 'X'); // Umami URL. Replace X with URL. Include full URL with script location. Requires GDPR_UMAMI_SITE_ID. Leave "X" or empty to not load script.
 require_once plugin_dir_path(__FILE__) . 'lib/gdpr-analytics-scripts.php';
 
 function gdpr_enqueue_scripts() {
